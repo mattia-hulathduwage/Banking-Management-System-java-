@@ -51,9 +51,64 @@ class DoublyLinkedList {
         }
     }
 }
-_______________________________________________________________
+class BankAccount {
+    int accountNumber;
+    String accountHolderName;
+    double balance;
 
-_______________________________________________________________
+    DoublyLinkedList transactions; // Doubly linked list for transactions
+
+    public BankAccount(int accountNumber, String accountHolderName, double balance) {
+        this.accountNumber = accountNumber;
+        this.accountHolderName = accountHolderName;
+        this.balance = balance;
+        this.transactions = new DoublyLinkedList();
+    }
+
+    void addTransaction(Transaction transaction) {
+        transactions.addTransaction(transaction);
+    }
+
+    void displayTransactionHistory() {
+        transactions.displayTransactionHistory();
+    }
+}
+
+class Node {
+    BankAccount data;
+    Node left, right;
+
+    public Node(BankAccount data) {
+        this.data = data;
+        left = right = null;
+    }
+}
+
+class BinarySearchTree {
+    Node root;
+
+    BinarySearchTree() {
+        root = null;
+    }
+
+    void insert(BankAccount data) {
+        root = insertRec(root, data);
+    }
+
+    Node insertRec(Node root, BankAccount data) {
+        if (root == null) {
+            root = new Node(data);
+            return root;
+        }
+        if (data.accountNumber < root.data.accountNumber) {
+            root.left = insertRec(root.left, data);
+        } else if (data.accountNumber > root.data.accountNumber) {
+            root.right = insertRec(root.right, data);
+        }
+
+        return root;
+    }
+
 void displayAccounts(Node root) {
         if (root != null) {
             displayAccounts(root.left);
