@@ -1,0 +1,117 @@
+______________________________________________________________________________
+void displayAccounts(Node root) {
+        if (root != null) {
+            displayAccounts(root.left);
+            System.out.println("Account Number: " + root.data.accountNumber
+                    + ", Account Holder Name: " + root.data.accountHolderName
+                    + ", Balance: LKR." + root.data.balance);
+            displayAccounts(root.right);
+        }
+    }
+
+    void displayAccountDetails(int accountNumber) {
+        displayAccountDetailsRec(root, accountNumber);
+    }
+
+    void displayAccountDetailsRec(Node root, int accountNumber) {
+        if (root == null) {
+            System.out.println("Account not found!");
+            return;
+        }
+        if (root.data.accountNumber == accountNumber) {
+            System.out.println("Account Number: " + root.data.accountNumber
+                    + ", Account Holder Name: " + root.data.accountHolderName
+                    + ", Balance: LKR." + root.data.balance);
+        } else if (root.data.accountNumber > accountNumber) {
+            displayAccountDetailsRec(root.left, accountNumber);
+        } else {
+            displayAccountDetailsRec(root.right, accountNumber);
+        }
+    }
+
+    void depositMoney(int accountNumber, double amount) {
+        root = depositMoneyRec(root, accountNumber, amount);
+    }
+
+    Node depositMoneyRec(Node root, int accountNumber, double amount) {
+        if (root == null) {
+            System.out.println("Account not found!");
+            return root;
+        }
+        if (root.data.accountNumber == accountNumber) {
+            root.data.balance += amount;
+            System.out.println("Deposit successful! New balance: LKR." + root.data.balance);
+        } else if (root.data.accountNumber > accountNumber) {
+            root.left = depositMoneyRec(root.left, accountNumber, amount);
+        } else {
+            root.right = depositMoneyRec(root.right, accountNumber, amount);
+        }
+        return root;
+    }
+
+    void withdrawMoney(int accountNumber, double amount) {
+        root = withdrawMoneyRec(root, accountNumber, amount);
+    }
+
+    Node withdrawMoneyRec(Node root, int accountNumber, double amount) {
+        if (root == null) {
+            System.out.println("Account not found!");
+            return root;
+        }
+        if (root.data.accountNumber == accountNumber) {
+            if (root.data.balance >= amount) {
+                root.data.balance -= amount;
+                System.out.println("Withdrawal successful! New balance: LKR." + root.data.balance);
+            } else {
+                System.out.println("Insufficient funds!");
+            }
+        } else if (root.data.accountNumber > accountNumber) {
+            root.left = withdrawMoneyRec(root.left, accountNumber, amount);
+        } else {
+            root.right = withdrawMoneyRec(root.right, accountNumber, amount);
+        }
+        return root;
+    }
+
+    Node findAccount(Node root, int accountNumber) {
+        if (root == null || root.data.accountNumber == accountNumber) {
+            return root;
+        }
+        if (root.data.accountNumber > accountNumber) {
+            return findAccount(root.left, accountNumber);
+        }
+        return findAccount(root.right, accountNumber);
+    }
+
+    void domesticTransaction(int sourceAccountNumber, int destinationAccountNumber, double amount) {
+        Node sourceAccountNode = findAccount(root, sourceAccountNumber);
+        Node destinationAccountNode = findAccount(root, destinationAccountNumber);
+
+        if (sourceAccountNode != null && destinationAccountNode != null) {
+            if (sourceAccountNode.data.balance >= amount) {
+                sourceAccountNode.data.balance -= amount;
+                destinationAccountNode.data.balance += amount;
+
+                Transaction transaction = new Transaction(sourceAccountNumber, destinationAccountNumber, amount);
+                sourceAccountNode.data.addTransaction(transaction);
+
+                System.out.println("Transaction successful!");
+            } else {
+                System.out.println("Insufficient funds in Account " + sourceAccountNumber + " for the transaction.");
+            }
+        } else {
+            System.out.println("One or both accounts not found!");
+        }
+    }
+
+    void displayTransactionHistory(int accountNumber) {
+        Node accountNode = findAccount(root, accountNumber);
+
+        if (accountNode != null) {
+            accountNode.data.displayTransactionHistory();
+        } else {
+            System.out.println("Account not found!");
+        }
+    }
+}
+_________________________________________________________________________________
