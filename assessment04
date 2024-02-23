@@ -213,7 +213,59 @@ void displayAccounts(Node root) {
             System.out.println("One or both accounts not found!");
         }
     }
-___________________________________________________________________________________________
+
+void displayTransactionHistory(int accountNumber) {
+        Node accountNode = findAccount(root, accountNumber);
+
+        if (accountNode != null) {
+            accountNode.data.displayTransactionHistory();
+        } else {
+            System.out.println("Account not found!");
+        }
+    }
+
+    void deleteAccount(int accountNumber) {
+        root = deleteAccountRec(root, accountNumber);
+    }
+
+    Node deleteAccountRec(Node root, int accountNumber) {
+        if (root == null) {
+            System.out.println("Account not found!");
+            return root;
+        }
+
+        if (accountNumber < root.data.accountNumber) {
+            root.left = deleteAccountRec(root.left, accountNumber);
+        } else if (accountNumber > root.data.accountNumber) {
+            root.right = deleteAccountRec(root.right, accountNumber);
+        } else {
+            // Node with only one child or no child
+            if (root.left == null) {
+                return root.right;
+            } else if (root.right == null) {
+                return root.left;
+            }
+
+            // Node with two children
+            root.data = minValue(root.right);
+
+            // Delete the successor
+            root.right = deleteAccountRec(root.right, root.data.accountNumber);
+        }
+
+        return root;
+    }
+
+    BankAccount minValue(Node root) {
+        BankAccount minValue = root.data;
+        while (root.left != null) {
+            minValue = root.left.data;
+            root = root.left;
+        }
+        return minValue;
+    }
+}
+
 public class pdsajava {
 
     /**
