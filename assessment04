@@ -1,3 +1,58 @@
+import java.util.Scanner;
+
+
+class Transaction {
+    int sourceAccountNumber;
+    int destinationAccountNumber;
+    double amount;
+
+    public Transaction(int sourceAccountNumber, int destinationAccountNumber, double amount) {
+        this.sourceAccountNumber = sourceAccountNumber;
+        this.destinationAccountNumber = destinationAccountNumber;
+        this.amount = amount;
+    }
+}
+
+class TransactionNode {
+    Transaction data;
+    TransactionNode prev, next;
+
+    public TransactionNode(Transaction data) {
+        this.data = data;
+        this.prev = this.next = null;
+    }
+}
+
+class DoublyLinkedList {
+    TransactionNode head;
+
+    public DoublyLinkedList() {
+        this.head = null;
+    }
+
+    void addTransaction(Transaction transaction) {
+        TransactionNode newNode = new TransactionNode(transaction);
+        if (head == null) {
+            head = newNode;
+        } else {
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+        }
+    }
+
+    void displayTransactionHistory() {
+        System.out.println("Transaction History:");
+        TransactionNode current = head;
+        while (current != null) {
+            System.out.println("Amount: LKR." + current.data.amount
+                    + ", Destination Account: " + current.data.destinationAccountNumber);
+            current = current.next;
+        }
+    }
+}
+_______________________________________________________________
+
 _______________________________________________________________
 void displayAccounts(Node root) {
         if (root != null) {
