@@ -359,7 +359,7 @@ public class pdsajava {
                     System.out.print("Enter Account Number to delete: ");
                     int deleteAccountNumber = scanner.nextInt();
                     bst.deleteAccount(deleteAccountNumber);
-                    System.out.println("Account deleted successfully ");
+                    System.out.println("Account deleted successfully! ");
                     System.out.println("-------------------------------");
                     break;
                 case 9:
