@@ -1,4 +1,4 @@
-______________________________________________________________________________
+_______________________________________________________________
 void displayAccounts(Node root) {
         if (root != null) {
             displayAccounts(root.left);
@@ -103,15 +103,4 @@ void displayAccounts(Node root) {
             System.out.println("One or both accounts not found!");
         }
     }
-
-    void displayTransactionHistory(int accountNumber) {
-        Node accountNode = findAccount(root, accountNumber);
-
-        if (accountNode != null) {
-            accountNode.data.displayTransactionHistory();
-        } else {
-            System.out.println("Account not found!");
-        }
-    }
-}
-_________________________________________________________________________________
+___________________________________________________________________________________________
