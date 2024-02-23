@@ -56,7 +56,7 @@ class BankAccount {
     String accountHolderName;
     double balance;
 
-    DoublyLinkedList transactions; // Doubly linked list for transactions
+    DoublyLinkedList transactions; 
 
     public BankAccount(int accountNumber, String accountHolderName, double balance) {
         this.accountNumber = accountNumber;
@@ -239,17 +239,17 @@ void displayTransactionHistory(int accountNumber) {
         } else if (accountNumber > root.data.accountNumber) {
             root.right = deleteAccountRec(root.right, accountNumber);
         } else {
-            // Node with only one child or no child
+            
             if (root.left == null) {
                 return root.right;
             } else if (root.right == null) {
                 return root.left;
             }
 
-            // Node with two children
+            
             root.data = minValue(root.right);
 
-            // Delete the successor
+           
             root.right = deleteAccountRec(root.right, root.data.accountNumber);
         }
 
@@ -268,9 +268,7 @@ void displayTransactionHistory(int accountNumber) {
 
 public class pdsajava {
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
         BinarySearchTree bst = new BinarySearchTree();
         Scanner scanner = new Scanner(System.in);
@@ -296,7 +294,7 @@ public class pdsajava {
                     System.out.println();
                     System.out.print("Enter Account Number: ");
                     int accountNumber = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
+                    scanner.nextLine();
                     System.out.print("Enter Account Holder Name: ");
                     String accountHolderName = scanner.nextLine();
                     System.out.print("Enter Balance: ");
