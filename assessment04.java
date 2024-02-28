@@ -265,15 +265,15 @@ void displayTransactionHistory(int accountNumber) {
         return minValue;
     }
 }
-
+// main method for the system
 public class pdsajava {
 
-    
+    // main method
     public static void main(String[] args) {
-        BinarySearchTree bst = new BinarySearchTree();
-        Scanner scanner = new Scanner(System.in);
+        BinarySearchTree bst = new BinarySearchTree();//create a bonary search tree to manage bank accounts 
+        Scanner scanner = new Scanner(System.in);// create a scanner object to read user inputs
 
-        while (true) {
+        while (true) //main loop for the system {
             System.out.println();
             System.out.println("1. Add an Account");
             System.out.println("2. Display All Accounts");
@@ -290,6 +290,7 @@ public class pdsajava {
             int choice = scanner.nextInt();
 
             switch (choice) {
+                // add an account for the system 
                 case 1:
                     System.out.println();
                     System.out.print("Enter Account Number: ");
@@ -303,12 +304,16 @@ public class pdsajava {
                     System.out.println("New Account added successfully!");
                     System.out.println("-------------------------------");
                     break;
+                    
+                //display all accounts in the system
                 case 2:
                     System.out.println();
                     System.out.println("All Accounts:");
                     bst.displayAccounts(bst.root);
                     System.out.println("-------------------------------");
                     break;
+                    
+                //display details of the specific account through the Acc No:
                 case 3:
                     System.out.println();
                     System.out.print("Enter Account Number to display details: ");
@@ -316,6 +321,8 @@ public class pdsajava {
                     bst.displayAccountDetails(displayAccountNumber);
                     System.out.println("-------------------------------");
                     break;
+
+                //deposit money into an Account
                 case 4:
                     System.out.println();
                     System.out.print("Enter Account Number to deposit money: ");
@@ -325,6 +332,8 @@ public class pdsajava {
                     bst.depositMoney(depositAccountNumber, depositAmount);
                     System.out.println("-------------------------------");
                     break;
+
+                //withdraw money from an account
                 case 5:
                     System.out.println();
                     System.out.print("Enter Account Number to withdraw money: ");
@@ -334,6 +343,8 @@ public class pdsajava {
                     bst.withdrawMoney(withdrawAccountNumber, withdrawAmount);
                     System.out.println("-------------------------------");
                     break;
+
+                //perform a domestic transaction between two accounts
                 case 6:
                     System.out.println();
                     System.out.print("Enter Source Account Number: ");
@@ -345,6 +356,8 @@ public class pdsajava {
                     bst.domesticTransaction(sourceAccountNumber, destinationAccountNumber, transferAmount);
                     System.out.println("-------------------------------");
                     break;
+
+                //display transaction history of the specific account
                 case 7:
                     System.out.println();
                     System.out.print("Enter Account Number to display transaction history: ");
@@ -352,6 +365,8 @@ public class pdsajava {
                     bst.displayTransactionHistory(historyAccountNumber);
                     System.out.println("-------------------------------");
                     break;
+
+                //delete an account 
                 case 8:
                     System.out.println();
                     System.out.print("Enter Account Number to delete: ");
@@ -360,10 +375,14 @@ public class pdsajava {
                     System.out.println("Account deleted successfully! ");
                     System.out.println("-------------------------------");
                     break;
+
+                // Exit the program
                 case 9:
                     System.out.println();
                     System.out.println("Exiting...");
                     System.exit(0);
+
+                // Invalid choice
                 default:
                     System.out.println();
                     System.out.println("Invalid choice! Please enter a valid option.");
