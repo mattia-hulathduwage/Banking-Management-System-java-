@@ -266,13 +266,15 @@ void displayTransactionHistory(int accountNumber) {
     }
 }
 
-public class pdsajava {
+public class Pdsajava {
+    private static BinarySearchTree bst = new BinarySearchTree();
+    private static Scanner scanner = new Scanner(System.in);
 
-    
     public static void main(String[] args) {
-        BinarySearchTree bst = new BinarySearchTree();
-        Scanner scanner = new Scanner(System.in);
+        displayMenu();
+    }
 
+    private static void displayMenu() {
         while (true) {
             System.out.println();
             System.out.println("1. Add an Account");
@@ -288,87 +290,127 @@ public class pdsajava {
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    System.out.println();
-                    System.out.print("Enter Account Number: ");
-                    int accountNumber = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.print("Enter Account Holder Name: ");
-                    String accountHolderName = scanner.nextLine();
-                    System.out.print("Enter Balance: ");
-                    double balance = scanner.nextDouble();
-                    bst.insert(new BankAccount(accountNumber, accountHolderName, balance));
-                    System.out.println("New Account added successfully!");
-                    System.out.println("-------------------------------");
-                    break;
-                case 2:
-                    System.out.println();
-                    System.out.println("All Accounts:");
-                    bst.displayAccounts(bst.root);
-                    System.out.println("-------------------------------");
-                    break;
-                case 3:
-                    System.out.println();
-                    System.out.print("Enter Account Number to display details: ");
-                    int displayAccountNumber = scanner.nextInt();
-                    bst.displayAccountDetails(displayAccountNumber);
-                    System.out.println("-------------------------------");
-                    break;
-                case 4:
-                    System.out.println();
-                    System.out.print("Enter Account Number to deposit money: ");
-                    int depositAccountNumber = scanner.nextInt();
-                    System.out.print("Enter amount to deposit: ");
-                    double depositAmount = scanner.nextDouble();
-                    bst.depositMoney(depositAccountNumber, depositAmount);
-                    System.out.println("-------------------------------");
-                    break;
-                case 5:
-                    System.out.println();
-                    System.out.print("Enter Account Number to withdraw money: ");
-                    int withdrawAccountNumber = scanner.nextInt();
-                    System.out.print("Enter amount to withdraw: ");
-                    double withdrawAmount = scanner.nextDouble();
-                    bst.withdrawMoney(withdrawAccountNumber, withdrawAmount);
-                    System.out.println("-------------------------------");
-                    break;
-                case 6:
-                    System.out.println();
-                    System.out.print("Enter Source Account Number: ");
-                    int sourceAccountNumber = scanner.nextInt();
-                    System.out.print("Enter Destination Account Number: ");
-                    int destinationAccountNumber = scanner.nextInt();
-                    System.out.print("Enter amount to transfer: ");
-                    double transferAmount = scanner.nextDouble();
-                    bst.domesticTransaction(sourceAccountNumber, destinationAccountNumber, transferAmount);
-                    System.out.println("-------------------------------");
-                    break;
-                case 7:
-                    System.out.println();
-                    System.out.print("Enter Account Number to display transaction history: ");
-                    int historyAccountNumber = scanner.nextInt();
-                    bst.displayTransactionHistory(historyAccountNumber);
-                    System.out.println("-------------------------------");
-                    break;
-                case 8:
-                    System.out.println();
-                    System.out.print("Enter Account Number to delete: ");
-                    int deleteAccountNumber = scanner.nextInt();
-                    bst.deleteAccount(deleteAccountNumber);
-                    System.out.println("Account deleted successfully! ");
-                    System.out.println("-------------------------------");
-                    break;
-                case 9:
-                    System.out.println();
-                    System.out.println("Exiting...");
-                    System.exit(0);
-                default:
-                    System.out.println();
-                    System.out.println("Invalid choice! Please enter a valid option.");
-                    System.out.println("-------------------------------");
-            }
+            processChoice(choice);
         }
+    }
+
+    private static void processChoice(int choice) {
+        switch (choice) {
+            case 1:
+                addAccount();
+                break;
+            case 2:
+                displayAllAccounts();
+                break;
+            case 3:
+                displayAccountDetails();
+                break;
+            case 4:
+                depositMoney();
+                break;
+            case 5:
+                withdrawMoney();
+                break;
+            case 6:
+                domesticTransaction();
+                break;
+            case 7:
+                displayTransactionHistory();
+                break;
+            case 8:
+                deleteAccount();
+                break;
+            case 9:
+                exitSystem();
+                break;
+            default:
+                System.out.println();
+                System.out.println("Invalid choice! Please enter a valid option.");
+                System.out.println("-------------------------------");
+        }
+    }
+
+    private static void addAccount() {
+        System.out.println();
+        System.out.print("Enter Account Number: ");
+        int accountNumber = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter Account Holder Name: ");
+        String accountHolderName = scanner.nextLine();
+        System.out.print("Enter Balance: ");
+        double balance = scanner.nextDouble();
+        bst.insert(new BankAccount(accountNumber, accountHolderName, balance));
+        System.out.println("New Account added successfully!");
+        System.out.println("-------------------------------");
+    }
+
+    private static void displayAllAccounts() {
+        System.out.println();
+        System.out.println("All Accounts:");
+        bst.displayAccounts(bst.root);
+        System.out.println("-------------------------------");
+    }
+
+    private static void displayAccountDetails() {
+        System.out.println();
+        System.out.print("Enter Account Number to display details: ");
+        int displayAccountNumber = scanner.nextInt();
+        bst.displayAccountDetails(displayAccountNumber);
+        System.out.println("-------------------------------");
+    }
+
+    private static void depositMoney() {
+        System.out.println();
+        System.out.print("Enter Account Number to deposit money: ");
+        int depositAccountNumber = scanner.nextInt();
+        System.out.print("Enter amount to deposit: ");
+        double depositAmount = scanner.nextDouble();
+        bst.depositMoney(depositAccountNumber, depositAmount);
+        System.out.println("-------------------------------");
+    }
+
+    private static void withdrawMoney() {
+        System.out.println();
+        System.out.print("Enter Account Number to withdraw money: ");
+        int withdrawAccountNumber = scanner.nextInt();
+        System.out.print("Enter amount to withdraw: ");
+        double withdrawAmount = scanner.nextDouble();
+        bst.withdrawMoney(withdrawAccountNumber, withdrawAmount);
+        System.out.println("-------------------------------");
+    }
+
+    private static void domesticTransaction() {
+        System.out.println();
+        System.out.print("Enter Source Account Number: ");
+        int sourceAccountNumber = scanner.nextInt();
+        System.out.print("Enter Destination Account Number: ");
+        int destinationAccountNumber = scanner.nextInt();
+        System.out.print("Enter amount to transfer: ");
+        double transferAmount = scanner.nextDouble();
+        bst.domesticTransaction(sourceAccountNumber, destinationAccountNumber, transferAmount);
+        System.out.println("-------------------------------");
+    }
+
+    private static void displayTransactionHistory() {
+        System.out.println();
+        System.out.print("Enter Account Number to display transaction history: ");
+        int historyAccountNumber = scanner.nextInt();
+        bst.displayTransactionHistory(historyAccountNumber);
+        System.out.println("-------------------------------");
+    }
+
+    private static void deleteAccount() {
+        System.out.println();
+        System.out.print("Enter Account Number to delete: ");
+        int deleteAccountNumber = scanner.nextInt();
+        bst.deleteAccount(deleteAccountNumber);
+        System.out.println("Account deleted successfully! ");
+        System.out.println("-------------------------------");
+    }
+
+    private static void exitSystem() {
+        System.out.println();
+        System.out.println("Exiting...");
+        System.exit(0);
     }
 }
